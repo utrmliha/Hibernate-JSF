@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:c="http://java.sun.com/jsf/core"
+	  xmlns:ui = "http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Lançamentos</title>
+</h:head>
+<h:body>
+
+	<ui:include src="/menu.xhtml" />
+
+	<h:form id="formLancamento" style="margin-top: 10%; margin-left:35%;">
+		<h:panelGrid columns="2">
+			<c:facet name="header">
+				<h:outputText value="Lançamentos"/>
+			</c:facet>
+			
+			<h:outputLabel value="ID: "/>
+			<h:inputText   value="#{lancamentoBean.lancamento.id}" readonly="true"/>
+			
+			<h:outputLabel value="Nota: "/>
+			<h:inputText   value="#{lancamentoBean.lancamento.numeroNotaFiscal}"/>
+			
+			<h:outputLabel value="Origem: "/>
+			<h:inputText   value="#{lancamentoBean.lancamento.empresaOrigem}"/>
+			
+			<h:outputLabel value="Destino: "/>
+			<h:inputText   value="#{lancamentoBean.lancamento.empresaDestino}"/>
+			
+			<h:outputText />
+			<h:panelGroup>
+				<h:commandButton title="Salvar"  value="Salvar"  action="#{lancamentoBean.salvar}"  image="resources/img/Salvar.png"/>
+				<h:commandButton title="Limpar"  value="Limpar"  type="reset"						image="resources/img/Limpar.png"  style="margin-left:15px;"/>
+				<h:commandButton title="Novo"    value="Novo"    action="#{lancamentoBean.novo}"    image="resources/img/Novo.png"    style="margin-left:15px;"/>
+				<h:commandButton title="Remover" value="Remover" action="#{lancamentoBean.remover}"  image="resources/img/Excluir.png" style="margin-left:15px;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}" />
+			</h:panelGroup>
+		</h:panelGrid>	
+		
+		<h:dataTable value="#{lancamentoBean.lancamentos}" var="lanc">
+			<c:facet name="header">Lista de Lançamentos</c:facet>
+			
+			<h:column>
+				<c:facet name="header">ID</c:facet>
+				<h:outputLabel value="#{lanc.id}" /></h:column>
+			<h:column>
+				<c:facet name="header">Nota Fiscal</c:facet>
+				<h:outputLabel value="#{lanc.numeroNotaFiscal}" /></h:column>
+			<h:column>
+				<c:facet name="header">Origem</c:facet>
+				<h:outputLabel value="#{lanc.empresaOrigem}" /></h:column>
+			<h:column>
+				<c:facet name="header">Destino</c:facet>
+				<h:outputLabel value="#{lanc.empresaDestino}" /></h:column>
+				
+			<h:column>
+				<h:commandLink title="Editar">
+						<!-- Ao clicar no Editar o setPropertyActionListener vai pegar a Pessoa da linha e injetar os dados para dentro do objeto pessoa -->
+					<c:setPropertyActionListener value="#{lanc}" target="#{lancamentoBean.lancamento}" />
+					<h:graphicImage	value="resources/img/caneta.png"/>
+				</h:commandLink></h:column>
+				
+			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+				<h:commandLink title="Remover" action="#{lancamentoBean.remover}">
+						<!-- Ao clicar no Editar o setPropertyActionListener vai pegar a Pessoa da linha e injetar os dados para dentro do objeto pessoa -->
+					<c:setPropertyActionListener value="#{lanc}"  target="#{lancamentoBean.lancamento}"/>
+					<h:graphicImage	value="resources/img/x.png"/>
+				</h:commandLink></h:column>
+		</h:dataTable>
+		
+	</h:form>
+</h:body>
+
+</html>

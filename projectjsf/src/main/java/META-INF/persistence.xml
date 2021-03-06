@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="projectjsf">
+		
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>entidades.Pessoa</class>
+		<class>entidades.Lancamento</class>
+		<class>entidades.Estados</class>
+		<class>entidades.Cidades</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bdjsf"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="admin"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			
+			
+			<!-- Pool de conexão -->
+			<!-- mínimo de conexões ou portas disponíveis -->
+			 <property name="hibernate.c3p0.min_size" value="5"/> 
+			
+			<!-- máximo de conexões ou portas disponíveis(não tem mta lógica limitar o máximo de 
+			conexões mas é bom se o servidor não tiver suportando muitas requisições ao banco) -->
+			<property name="hibernate.c3p0.min_size" value="100"/> 
+			
+			<!-- número de segundos em que uma conexão inativa é mantida no pool -->
+			<property name="hibernate.c3p0.timeout" value="300"/> 
+			
+			<!-- Número total de instruções ou transações, operações no banco de dados mantida no cache -->
+			<property name="hibernate.c3p0.max_statements" value="50"/> 
+			
+			<!-- Tempo ocioso em segundos antes de uma conexão ser validada automaticamente -->
+			<property name="hibernate.c3p0.idle_test_period" value="120"/> 
+			
+		</properties>
+	</persistence-unit>
+</persistence>
